@@ -1,0 +1,15 @@
+---
+declared-services:
+  Intelliway-Conversation-dev:
+    label: conversation
+    plan: standard
+applications:
+- name: Intelliway-GAB-Vendas
+  command: npm start
+  path: .
+  memory: 256M
+  instances: 1
+  services:
+  - Intelliway-Conversation-dev
+  env:
+    NPM_CONFIG_PRODUCTION: false

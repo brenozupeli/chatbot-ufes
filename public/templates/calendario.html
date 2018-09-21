@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script>
+
+        function colorRed(){
+            for(var i =0; i< document.getElementsByClassName('fc-day').length ; i++){
+                document.getElementsByClassName('fc-day')[i].style.backgroundColor = 'red';
+            }
+
+        }
+        function setBorder(){
+            for(var i=0; i< document.getElementsByClassName('fc-event').length ; i++){
+                document.getElementsByClassName('fc-event')[i].style.borderColor = 'white';
+            }
+
+        }
+        function consultaDisponibilidade(codigoAtendimento, codigoCliente, dataAgendada) {
+            var data = {
+                "codigoCliente": codigoCliente,
+                "dataAgendada": dataAgendada,
+                "codigoAtendimento": codigoAtendimento
+            }
+            $.ajax({
+                headers: { 'Content-Type': 'application/json' },
+                url: '/GetAgenda',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                success: function (data) {
+                    if (data) {
+                        var info = data;
+                        var context;
+                        var latestResponse = Api.getResponsePayload();
+                        if (latestResponse) context = latestResponse.context;
+                        context['category'] = "sucess";
+                        for (var i = 0; i < info.Hora.length; i++) {
+                            drawIsso(info.DataHora.split('-')[0],info.DataHora.split('-')[1],info.DataHora.split('-')[2].split('T')[0],info.Hora[i].split(':')[0],info.Hora[i].split(':')[1]);
+                        }
+                        //Api.sendRequest('', context);
+                    } else {
+                        var context;
+                        var latestResponse = Api.getResponsePayload();
+                        if (latestResponse) {
+                            context = latestResponse.context;
+                        }
+                        context['category'] = "error";
+                        // Send the user message
+                        Api.sendRequest('', context);
+                    }
+                },
+                error: function () {
+                    var context;
+                    var latestResponse = Api.getResponsePayload();
+                    if (latestResponse) {
+                        context = latestResponse.context;
+                    }
+                    context['category'] = "error";
+                    // Send the user message
+                    Api.sendRequest('', context);
+                }
+            });
+        }
+        $('.fc-button').click(function() {
+            //colorRed();
+            var codigoAtendimento = Api.codigoAtendimento();
+            var codigoCliente = Api.codigoCliente();
+            for(var i=0; i <document.getElementsByClassName('fc-day-header').length; i++){
+                var aux = document.getElementsByClassName('fc-day-header')[i].getAttribute('data-date').split('-');
+                var dataAgendada = aux[2] + '/' + aux[1] + '/' + aux[0];
+                //console.log(dataAgendada);
+                consultaDisponibilidade(codigoAtendimento, codigoCliente, dataAgendada);
+            }
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

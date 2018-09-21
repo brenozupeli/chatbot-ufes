@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script>
+    $('.fa').click(function() {
+        var context;
+        var latestResponse = Api.getResponsePayload();
+        if (latestResponse) context = latestResponse.context;
+        Api.sendRequest('', context);
+        //colorRed();
+    });
+
+
+</script>
+<style>
+    .estrelas input[type=radio] {
+        display: none;
+    }
+    .estrelas label i.fa:before {
+        content:'\f005';
+        color: #FC0;
+    }
+    .estrelas input[type=radio]:checked ~ label i.fa:before {
+        color: #B5B5B5;
+    }
+    .star {
+        background-color: #1F9900;
+    }
+
+</style>

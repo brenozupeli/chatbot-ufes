@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<base href="/">
+		<title>Chatbot 1.0</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- Folhas de estilos -->
+		<link rel="stylesheet" href="css/app.css">
+		<link href='css/css-site-vv.css' rel='stylesheet' />
+		<link href='js/fullcalendar/fullcalendar.min.css' rel='stylesheet' />
+		<link href='js/fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+
+		<!-- Scripts JS -->
+		<script src='js/fullcalendar/lib/moment.min.js'></script>
+		<script src='js/fullcalendar/lib/jquery.min.js'></script>
+		<script src='js/fullcalendar/fullcalendar.min.js'></script>
+		<script src='js/fullcalendar/locale-all.js'></script>
+	</head>
+
+	<body>
+		<div class="modal fade" id="chatbot-modal" tabindex="-1" role="dialog" aria-labelledby="chatbot-modal" aria-hidden="true">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div id="contentParent" class="responsive-columns-wrapper">
+		<div id="chat-column-holder" class="content-column">
+			<div class="chat-column">
+				<div class="chat-header">
+					<span>Posso te ajudar?</span>
+					<button type="button" class="close"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></button>
+				</div>
+				<div id="scrollingChat"></div>
+				<label for="textInput" class="inputOutline">
+					<input id="textInput" class="input responsive-column"
+					placeholder="Escreva sua mensagem..." type="text"
+					onkeydown="ConversationPanel.inputKeyDown(event, this)">
+				</label>
+			</div>
+		</div>
+	</div>
+
+		<!-- Scripts JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>		<script src="js/common.js"></script>
+		<script src="js/api.js"></script>
+		<script src="js/conversation.js"></script>
+		<script src="js/global.js"></script>
+		<script src="js/custom.js"></script>
+		<script src="js/jquery.maskedinput.min.js"></script>
+	</body>
+</html>
