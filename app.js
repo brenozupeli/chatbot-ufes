@@ -23,10 +23,13 @@ const request = require('request');
 const http = require('http');
 var querystring = require('querystring');
 var app = express();
+var JsonDB = require('node-json-db');
 
 // Bootstrap application settings
 app.use(express.static('./public')); // load UI from public folder
 app.use(bodyParser.json());
+
+var db = new JsonDB("dataBase", true, true);
 
 // Create the service wrapper
 var conversation = new Conversation({
@@ -93,5 +96,46 @@ function updateMessage(input, response) {
   response.output.text = responseText;
   return response;
 }
+
+app.get('/getEventos', function(req, res){
+  console.log(req.query.data);
+  try {
+    var data = db.getData("/eventos/" + req.query.data);
+
+    res.status(200);
+    res.send(data);
+  } catch(error) {
+      console.error(error);
+      res.status(400);
+      res.send("Erro ao encontrar eventos");
+  };
+});
+
+app.get('/getMatricula', function(req, res){
+  try {
+    var data = db.getData("/calendario_academico");
+
+    res.status(200);
+    res.send(data);
+  } catch(error) {
+      console.error(error);
+      res.status(400);
+      res.send("Erro ao encontrar eventos");
+  };
+});
+
+app.post('/cadastrar', function(req, res){
+  console.log(req.body.dados);
+  try {
+    db.push("/" + req.body.tipo + "/" + req.body.id, req.body.dados);
+
+    res.status(200);
+    res.send("Cadastro realizado");
+  } catch(error) {
+      console.error(error);
+      res.status(400);
+      res.send("Erro ao cadastrar");
+  };
+});
 
 module.exports = app;

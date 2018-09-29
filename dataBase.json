@@ -1,0 +1,42 @@
+{
+    "eventos": {
+        "2018-09-29": {
+            "tipo": "Palestra",
+            "nome": "A construção de um projeto",
+            "local": "Cine Metrópolis",
+            "link": "www.ufes.br"
+        },
+        "2018-09-30": {
+            "tipo": "Conferência",
+            "nome": "20ª Jornada de Iniciação Científica",
+            "local": "Reitoria",
+            "link": "www.ufes.br"
+        }
+    },
+    "calendario_academico": {
+        "matricula_veterano1": {
+            "data_inicio": "2018-07-19",
+            "data_fim": "2018-07-25",
+            "descricao": "1ª etapa",
+            "local": "https://aluno.ufes.br/"
+        },
+        "matricula_veterano2": {
+            "data_inicio": "2018-08-15",
+            "data_fim": "2018-08-21",
+            "descricao": "2ª etapa",
+            "local": "https://aluno.ufes.br/"
+        },
+        "matricula_veterano3": {
+            "data_inicio": "2018-08-30",
+            "data_fim": "2018-09-06",
+            "descricao": "3ª etapa",
+            "local": "http://www.informatica.ufes.br/sites/informatica.ufes.br/files/field/anexo/formulario_terceira_etapa.pdf"
+        },
+        "matricula_calouro": {
+            "data_inicio": "2018-07-09",
+            "data_fim": "2018-07-17",
+            "descricao": "matricula presencial",
+            "local": "Prograd"
+        }
+    }
+}
