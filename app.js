@@ -24,9 +24,13 @@ const http = require('http');
 var querystring = require('querystring');
 var app = express();
 var JsonDB = require('node-json-db');
+var cheerio = require('cheerio');
 
 // Bootstrap application settings
 app.use(express.static('./public')); // load UI from public folder
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
 app.use(bodyParser.json());
 
 var db = new JsonDB("dataBase", true, true);
@@ -136,6 +140,43 @@ app.post('/cadastrar', function(req, res){
       res.status(400);
       res.send("Erro ao cadastrar");
   };
+});
+
+app.get("/cardapio", function(req, res) {
+  var url = "http://www.ru.ufes.br/cardapio/";
+  var achou = false;
+  var resp = null;
+  var sair = false;
+  console.log(req.query.data + " " + req.query.tipo);
+  request(url+req.query.data, function(err, response, html) {
+    if(!err) {
+      var $ = cheerio.load(html);
+
+      $('.views-field').filter(function(){
+        if(!sair) {
+          var data = $(this);
+          var cardapio = data.children().first().text();
+          if(achou) {
+            achou = false;
+            sair = true;
+            resp = cardapio;
+          }
+          if(cardapio.match(req.query.tipo)) {
+            achou = true;
+          }
+        }
+      }); 
+    }
+    if(resp != null) {
+      console.log("Achou " + resp);
+      res.status(200);
+      res.send(resp);
+    }else{
+      console.log("Não");
+      res.status(400);
+      res.send("O cardápio ainda não está disponível.");
+    }
+  });
 });
 
 module.exports = app;
