@@ -266,19 +266,25 @@ var Api = (function() {
                                     "data": str_data },
                             contentType: "application/json; charset=utf-8",
                             success: function (data, textStatus, xhr) {
-                                var resp = "";
-                                if(context['ru'].match("Jantar")) {
-                                    resp = resp.concat("O cardápio da janta é: <br>");
-                                }else{
-                                    resp = resp.concat("O cardápio do almoço é: <br>");
-                                }
-                                data.split("\n").forEach(function(item) {
-                                    if(item.match("Salada") || item.match("Prato") || item.match("Opção") || item.match("Acompanhamento") || item.match("Guarnição")) {
-                                        resp = resp.concat(" <b> ", item, " </b> <br> ");
+                                try{
+                                    
+                                    var resp = "";
+                                    if(typeof context['ru'] === "undefined" || context['ru'].match("Almo")) {
+                                        resp = resp.concat("O cardápio do almoço é: <br>");
                                     }else{
-                                        resp = resp.concat(item, "<br>");
+                                        resp = resp.concat("O cardápio da janta é: <br>");
                                     }
-                                });
+                                    console.log(data);
+                                    data.split("\n").forEach(function(item) {
+                                        if(item.match("Salada") || item.match("Prato") || item.match("Opção") || item.match("Acompanhamento") || item.match("Guarnição")) {
+                                            resp = resp.concat(" <b> ", item, " </b> <br> ");
+                                        }else if(item !== "" && !item.match("Janta") && !item.match("Almo") && item !== "\n"){
+                                            resp = resp.concat(item, "<br>");
+                                        }
+                                    });
+                                }catch(err) {
+                                    resp = "Ocorreu um erro, favor reportar toda a conversa."
+                                }
                                 context['resp'] = resp;
                                 context['ru'] = null;
 

@@ -39,14 +39,14 @@ var db = new JsonDB("dataBase", true, true);
 var conversation = new Conversation({
   // If unspecified here, the CONVERSATION_USERNAME and CONVERSATION_PASSWORD env properties will be checked
   // After that, the SDK will fall back to the bluemix-provided VCAP_SERVICES environment property
-  // username: '<username>',
-  // password: '<password>',
-  // url: 'https://gateway.watsonplatform.net/conversation/api',
+  username: 'aadc8452-491c-4259-b0fe-86d7f679b99a',
+  password: 'onsqdQc4ZvRE',
+  url: 'https://gateway.watsonplatform.net/conversation/api',
   version_date: Conversation.VERSION_DATE_2017_04_21
 });
 
 app.post('/api/message', function(req, res) {
-  var workspace = process.env.WORKSPACE_ID || '<workspace-id>';
+  var workspace = process.env.WORKSPACE_ID || '<458911e7-b71e-4fe6-8f9b-843ce9af5410>';
   if (!workspace || workspace === '<workspace-id>') {
     return res.json({
       'output': {
@@ -144,37 +144,35 @@ app.post('/cadastrar', function(req, res){
 
 app.get("/cardapio", function(req, res) {
   var url = "http://www.ru.ufes.br/cardapio/";
-  var achou = false;
   var resp = null;
   var sair = false;
   console.log(req.query.data + " " + req.query.tipo);
   request(url+req.query.data, function(err, response, html) {
     if(!err) {
-      var $ = cheerio.load(html);
-
-      $('.views-field').filter(function(){
+      const $ = cheerio.load(html);
+      $('.view-content').each(function(i, elem) {
         if(!sair) {
-          var data = $(this);
-          var cardapio = data.children().first().text();
-          if(achou) {
-            achou = false;
-            sair = true;
-            resp = cardapio;
-          }
+          var cardapio = $(this).children().first().text();
           if(cardapio.match(req.query.tipo)) {
-            achou = true;
+            resp = cardapio;
+            sair = true;
+          }
+          cardapio = $(this).children().first().next().text();
+          if(cardapio.match(req.query.tipo)) {
+            resp = cardapio;
+            sair = true;
           }
         }
-      }); 
+      });
     }
-    if(resp != null) {
-      console.log("Achou " + resp);
-      res.status(200);
-      res.send(resp);
-    }else{
-      console.log("Não");
+    if(resp == null || resp == "") {
+      // console.log("Não");
       res.status(400);
       res.send("O cardápio ainda não está disponível.");
+    }else{
+      // console.log("Achou " + resp);
+      res.status(200);
+      res.send(resp);
     }
   });
 });

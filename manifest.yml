@@ -4,12 +4,13 @@ declared-services:
     label: conversation
     plan: standard
 applications:
-- name: Intelliway-GAB-Vendas
+- name: chatbot-ufes
   command: npm start
+  random-route: true
   path: .
   memory: 256M
   instances: 1
   services:
-  - Intelliway-Conversation-dev
+  - Watson Assistant-pj
   env:
     NPM_CONFIG_PRODUCTION: false
