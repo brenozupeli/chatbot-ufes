@@ -26,6 +26,8 @@ var app = express();
 var JsonDB = require('node-json-db');
 var cheerio = require('cheerio');
 
+const scrapeIt = require("scrape-it");
+
 // Bootstrap application settings
 app.use(express.static('./public')); // load UI from public folder
 // app.use(bodyParser.urlencoded({
@@ -148,6 +150,7 @@ app.get("/cardapio", function(req, res) {
   var sair = false;
   console.log(req.query.data + " " + req.query.tipo);
   request(url+req.query.data, function(err, response, html) {
+    // console.log(html)
     if(!err) {
       const $ = cheerio.load(html);
       $('.view-content').each(function(i, elem) {
@@ -165,12 +168,12 @@ app.get("/cardapio", function(req, res) {
         }
       });
     }
+    console.log("---------------")
+    console.log(resp)
     if(resp == null || resp == "") {
-      // console.log("Não");
       res.status(400);
       res.send("O cardápio ainda não está disponível.");
     }else{
-      // console.log("Achou " + resp);
       res.status(200);
       res.send(resp);
     }

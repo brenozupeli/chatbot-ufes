@@ -1,0 +1,7 @@
+{
+    "appService.deploySubpath": "",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/f6cc7429-2512-4365-a0db-4f149d5136bb/resourceGroups/appsvc_rg_linux_centralus/providers/Microsoft.Web/sites/chatbot-ufes"
+}

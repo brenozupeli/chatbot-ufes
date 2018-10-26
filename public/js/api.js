@@ -106,8 +106,8 @@ var Api = (function() {
                             success: function (data) {
                                 context['evento_encontrado'] = "true";
                                 var retorno = JSON.stringify(data);
-                                var resp = "No dia ";
-                                resp = resp.concat("<br>Mais informações podem ser encontradas em " + data.link);
+                                var resp = "Evento " + data.nome + ", no local: " + data.local;
+                                resp = resp.concat("<br>Mais informações podem ser encontradas em <a href=\"" + data.link + "\" target=\"_blank\">" + data.link + "</a>");
 
                                 console.log(resp);
 
@@ -135,10 +135,9 @@ var Api = (function() {
                             type: "GET",
                             contentType: "application/json; charset=utf-8",
                             success: function (retorno) {
+                                var today = new Date("2018-07-19");
                                 if(context['discente'] == 'calouro') {
                                     var infoCalouro = retorno.matricula_calouro;
-                                    
-                                    var today = new Date('2018-06-03');
 
                                     var dataInicio = new Date(infoCalouro.data_inicio);
                                     var dataFim = new Date(infoCalouro.data_fim);
@@ -153,7 +152,6 @@ var Api = (function() {
                                         resp = resp.concat("A matrícula é feita na " + retorno.local + ".");
                                     }
                                 }else{
-                                    var today = new Date('2018-06-03');
                                     if (typeof context['matricula'] == 'undefined') {
                                         var infoVeterano1 = retorno.matricula_veterano1;
                                         var infoVeterano2 = retorno.matricula_veterano2;
@@ -170,17 +168,16 @@ var Api = (function() {
 
                                         if(today < dataInicio1) {
                                             resp = resp.concat("A primeira etapa de matrícula se inicia em " + dataInicio1.getDate() + "/" + (dataInicio1.getMonth()+1) + "/" + dataInicio1.getFullYear() + " e vai até " + dataFim1.getDate() + "/" + (dataFim1.getMonth()+1) + "/" + dataFim1.getFullYear() + ". Não perca o prazo!<br>");
-                                            resp = resp.concat("A matrícula é feita no portal do aluno: " + infoVeterano1.local + ".");
+                                            resp = resp.concat("A matrícula é feita no portal do aluno: <a href=\"" + infoVeterano1.local + "\" target=\"_blank\">" + infoVeterano1.local + "</a>");
                                         }else if(today < dataFim1){
-                          
                                             resp = resp.concat("A primeira etapa de matrícula está aberta e se encerra no dia " + dataFim1.getDate() + "/" + (dataFim1.getMonth()+1) + "/" + dataFim1.getFullYear() + ". Não perca o prazo!<br>");
-                                            resp = resp.concat("A matrícula é feita no portal do aluno: " + infoVeterano1.local + ".");
+                                            resp = resp.concat("A matrícula é feita no portal do aluno: <a href=\"" + infoVeterano1.local + "\" target=\"_blank\">" + infoVeterano1.local + "</a>");
                                         }else if(today < dataInicio2) {
                                             resp = resp.concat("A segunda etapa de matrícula se inicia em " + dataInicio2.getDate() + "/" + (dataInicio2.getMonth()+1) + "/" + dataInicio2.getFullYear() + " e vai até " + dataFim2.getDate() + "/" + (dataFim2.getMonth()+1) + "/" + dataFim2.getFullYear() + ". Não perca o prazo!<br>");
-                                            resp = resp.concat("A matrícula é feita no portal do aluno: " + infoVeterano2.local + ".");
+                                            resp = resp.concat("A matrícula é feita no portal do aluno: <a href=\"" + infoVeterano2.local + "\" target=\"_blank\">" + infoVeterano2.local + "</a>");
                                         }else if(today < dataFim2){
                                             resp = resp.concat("A segunda etapa de matrícula está aberta e se encerra no dia " + dataFim2.getDate() + "/" + (dataFim2.getMonth()+1) + "/" + dataFim2.getFullYear() + ". Não perca o prazo!<br>");
-                                            resp = resp.concat("A matrícula é feita no portal do aluno: " + infoVeterano2.local + ".");
+                                            resp = resp.concat("A matrícula é feita no portal do aluno: <a href=\"" + infoVeterano2.local + "\" target=\"_blank\">" + infoVeterano2.local + "</a>");
                                         }else if(today < dataInicio3) {
                                             resp = resp.concat("A terceira etapa de matrícula se inicia em " + dataInicio3.getDate() + "/" + (dataInicio3.getMonth()+1) + "/" + dataInicio3.getFullYear() + " e vai até " + dataFim3.getDate() + "/" + (dataFim3.getMonth()+1) + "/" + dataFim3.getFullYear() + ". Não perca o prazo!<br>");
                                             resp = resp.concat("A matrícula é feita com o preenchimento do formulário abaixo, que deve ser entregue no colegiado do seu curso.<br>" + 
@@ -190,7 +187,7 @@ var Api = (function() {
                                             resp = resp.concat("A matrícula é feita com o preenchimento do formulário abaixo, que deve ser entregue no colegiado do seu curso.<br>" + 
                                                 "<a href=\"" + infoVeterano3.local + "\" target=\"_blank\" class=\"btn btn-info\" role=\"button\">Formulário</a>");
                                         }else{
-                                            resp = resp.concat("O período de matrícula para o proximo semestre ainda não está disponivel!<br>");
+                                            resp = resp.concat("O período de matrícula deste semestre já passou, a data para o próximo semestre ainda não foi definida.<br>");
                                         }
                                     }else{
                                         if(context['matricula'] == "primeira etapa") {
@@ -200,10 +197,10 @@ var Api = (function() {
 
                                             if(today < dataInicio1) {
                                                 resp = resp.concat("A primeira etapa de matrícula se inicia em " + dataInicio1.getDate() + "/" + (dataInicio1.getMonth()+1) + "/" + dataInicio1.getFullYear() + " e vai até " + dataFim1.getDate() + "/" + (dataFim1.getMonth()+1) + "/" + dataFim1.getFullYear() + ". Não perca o prazo!<br>");
-                                                resp = resp.concat("A matrícula é feita no portal do aluno: " + infoVeterano1.local + ".");
+                                                resp = resp.concat("A matrícula é feita no portal do aluno: <a href=\"" + infoVeterano1.local + "\" target=\"_blank\">" + infoVeterano1.local + "</a>");
                                             }else if(today < dataFim1){
                                                 resp = resp.concat("A primeira etapa de matrícula está aberta e se encerra no dia " + dataFim1.getDate() + "/" + (dataFim1.getMonth()+1) + "/" + dataFim1.getFullYear() + ". Não perca o prazo!<br>");
-                                                resp = resp.concat("A matrícula é feita no portal do aluno: " + infoVeterano1.local + ".");
+                                                resp = resp.concat("A matrícula é feita no portal do aluno: <a href=\"" + infoVeterano1.local + "\" target=\"_blank\">" + infoVeterano1.local + "</a>");
                                             }else{
                                                 resp = resp.concat("A primeira etapa de matrícula já terminou. :(");
                                             }
@@ -214,10 +211,10 @@ var Api = (function() {
 
                                             if(today < dataInicio2) {
                                                 resp = resp.concat("A segunda etapa de matrícula se inicia em " + dataInicio2.getDate() + "/" + (dataInicio2.getMonth()+1) + "/" + dataInicio2.getFullYear() + " e vai até " + dataFim2.getDate() + "/" + (dataFim2.getMonth()+1) + "/" + dataFim2.getFullYear() + ". Não perca o prazo!<br>");
-                                                resp = resp.concat("A matrícula é feita no portal do aluno: " + infoVeterano2.local + ".");
+                                                resp = resp.concat("A matrícula é feita no portal do aluno: <a href=\"" + infoVeterano2.local + "\" target=\"_blank\">" + infoVeterano2.local + "</a>");
                                             }else if(today < dataFim2){
                                                 resp = resp.concat("A segunda etapa de matrícula está aberta e se encerra no dia " + dataFim2.getDate() + "/" + (dataFim2.getMonth()+1) + "/" + dataFim2.getFullYear() + ". Não perca o prazo!<br>");
-                                                resp = resp.concat("A matrícula é feita no portal do aluno: " + infoVeterano2.local + ".");
+                                                resp = resp.concat("A matrícula é feita no portal do aluno: <a href=\"" + infoVeterano2.local + "\" target=\"_blank\">" + infoVeterano2.local + "</a>");
                                             }else{
                                                 resp = resp.concat("A segunda etapa de matrícula já terminou. :(");
                                             }
@@ -252,13 +249,8 @@ var Api = (function() {
 
                     }
                     if(action == "mostrar_cardapio") {
-                        var data;
-                        if(context['data'] != null) {
-                            data = new Date(context['data']);
-                        }else{
-                            data = new Date();
-                        }
-                        var str_data = data.getFullYear() + "-" + (data.getMonth()+1) + "-" + data.getDate();
+                        var data = new Date(context['data']);
+                        var str_data = data.getFullYear() + "-" + (data.getMonth()+1) + "-" + (data.getDate());
                         $.ajax({
                             url: "/cardapio",
                             type: "GET",
@@ -267,7 +259,6 @@ var Api = (function() {
                             contentType: "application/json; charset=utf-8",
                             success: function (data, textStatus, xhr) {
                                 try{
-                                    
                                     var resp = "";
                                     if(typeof context['ru'] === "undefined" || context['ru'].match("Almo")) {
                                         resp = resp.concat("O cardápio do almoço é: <br>");
@@ -283,10 +274,9 @@ var Api = (function() {
                                         }
                                     });
                                 }catch(err) {
-                                    resp = "Ocorreu um erro, favor reportar toda a conversa."
+                                    resp = "Ocorreu um erro, favor reportar toda a conversa.\n" + err
                                 }
                                 context['resp'] = resp;
-                                context['ru'] = null;
 
                                 Api.sendRequest('',context);
                             },

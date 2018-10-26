@@ -26,6 +26,7 @@
     "nano-pipe": "0.0.6",
     "node-json-db": "^0.9.0",
     "nodemon": "^1.17.1",
+    "scrape-it": "^5.1.0",
     "watson-developer-cloud": "^2.31.1"
   },
   "devDependencies": {
