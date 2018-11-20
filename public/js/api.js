@@ -249,7 +249,8 @@ var Api = (function() {
 
                     }
                     if(action == "mostrar_cardapio") {
-                        var data = new Date(context['data']);
+                        var data = new Date();
+                        console.log(data);
                         var str_data = data.getFullYear() + "-" + (data.getMonth()+1) + "-" + (data.getDate());
                         $.ajax({
                             url: "/cardapio",
@@ -267,7 +268,7 @@ var Api = (function() {
                                     }
                                     console.log(data);
                                     data.split("\n").forEach(function(item) {
-                                        if(item.match("Salada") || item.match("Prato") || item.match("Opção") || item.match("Acompanhamento") || item.match("Guarnição")) {
+                                        if(item.match("Salada") || item.match("Prato") || item.match("Opção") || item.match("Acompanhamento") || item.match("Guarnição") || item.match("Sobremesa")) {
                                             resp = resp.concat(" <b> ", item, " </b> <br> ");
                                         }else if(item !== "" && !item.match("Janta") && !item.match("Almo") && item !== "\n"){
                                             resp = resp.concat(item, "<br>");
