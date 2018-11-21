@@ -104,17 +104,41 @@ function updateMessage(input, response) {
 }
 
 app.get('/getEventos', function(req, res){
-  console.log(req.query.data);
-  try {
-    var data = db.getData("/eventos/" + req.query.data);
+  if(req.query.data) {
+    try {
+      var data = db.getData("/eventos/" + req.query.data);
+  
+      res.status(200);
+      res.send(data);
+    } catch(error) {
+        console.error(error);
+        res.status(400);
+        res.send("Erro ao encontrar eventos");
+    };
+  }else{
+    try {
+      var data = db.getData("/eventos");
+      var result = {}
 
-    res.status(200);
-    res.send(data);
-  } catch(error) {
-      console.error(error);
-      res.status(400);
-      res.send("Erro ao encontrar eventos");
-  };
+      for(var k in data) {
+        // console.log(k, data[k]);
+        // console.log("\n");
+        if(new Date(k) >= new Date()) {
+          result[k] = data[k];
+        }
+      }
+
+     console.log(result);
+  
+      res.status(200);
+      res.send(result);
+    } catch(error) {
+        console.error(error);
+        res.status(400);
+        res.send("Erro ao encontrar eventos");
+    };
+  }
+
 });
 
 app.get('/getMatricula', function(req, res){

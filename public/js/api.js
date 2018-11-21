@@ -94,13 +94,18 @@ var Api = (function() {
                     }
                     if(action == "mostrar_eventos") {
 
-                        console.log(context);
+                        var data;
+                        if (typeof context['data'] != 'undefined') {
+                            data = context['data'];
+                        }else{
+                            data = null;
+                        }
                         context['action'] = void(0);
 
                         $.ajax({
                             url: "/getEventos",
                             type: "GET",
-                            data: {"data": context['data']},
+                            data: {"data": data},
                             dataType: "json",
                             contentType: "application/json; charset=utf-8",
                             success: function (data) {
